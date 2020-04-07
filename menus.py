@@ -1,11 +1,10 @@
-from constants import INIT_SPACE
+from constants import INIT_SPACE, SEPARADOR
 from messages import mensagem
+from internal_functions import limpa_tela
 
 
 def menu(user, context, controller, *args):
     assert context['opcoes'], 'Você deve fornecer opções para o menu'
-
-    print()
 
     for i in range(len(context['opcoes'])):
         print(INIT_SPACE + '(' + str(i) + ') ' + context['opcoes'][i]['texto'])
@@ -21,6 +20,8 @@ def menu(user, context, controller, *args):
 
             return controller(user, *args)
 
+        limpa_tela()
+
         return context['opcoes'][opcao_usuario]['controller'](user, *args)
 
     else:
@@ -30,3 +31,9 @@ def menu(user, context, controller, *args):
         ))
 
         return controller(user, *args)
+
+
+def menu_titulo(titulo):
+    print()
+    print(INIT_SPACE + titulo)
+    print(SEPARADOR)
